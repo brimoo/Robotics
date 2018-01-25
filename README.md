@@ -17,5 +17,4 @@ but it is possible to install on other operating systems.
 
 To run each ROS project, use the roslaunch command as shown: `roslaunch <pkg_name> <launchfile>`
 
-Example: `roslaunch labpkg lab1.launch'
-` 
+Example: `roslaunch labpkg lab1.launch`

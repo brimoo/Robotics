@@ -135,6 +135,8 @@ include_directories(
 
 add_executable(sendtime src/sendtime.cpp)
 add_executable(receivetime src/receivetime.cpp)
+add_executable(square src/square.cpp)
+add_executable(getlaser src/getlaser.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -153,6 +155,8 @@ add_executable(receivetime src/receivetime.cpp)
 
 target_link_libraries(sendtime ${catkin_LIBRARIES})
 target_link_libraries(receivetime ${catkin_LIBRARIES})
+target_link_libraries(square ${catkin_LIBRARIES})
+target_link_libraries(getlaser ${catkin_LIBRARIES})
 
 #############
 ## Install ##

@@ -21,6 +21,11 @@ int main(int argc, char* argv[]){
 			rate.sleep();
 		}
 
+		twistmsg.angular.z = 0;
+		twistmsg.linear.x = 0;
+		pubtwist.publish(twistmsg);
+		rate.sleep();
+
 		twistmsg.linear.x = 0;
 		twistmsg.angular.z = 2 * M_PI;
 		for(int i = 0; i < 6; i++){

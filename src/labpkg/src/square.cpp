@@ -29,11 +29,7 @@ int main(int argc, char* argv[]){
 		rate.sleep(); 
 
 		twistmsg.linear.x = 0;
-<<<<<<< HEAD
-		twistmsg.angular.z =  M_PI / 2.7;
-=======
-		twistmsg.angular.z =  M_PI / 3;
->>>>>>> 0495712d2cf0018613db62f6607b8e67afb53021
+		twistmsg.angular.z =  M_PI / 2.8;
 		for(int i = 0; i < 6; i++){
 			pubtwist.publish(twistmsg);
 			rate.sleep();

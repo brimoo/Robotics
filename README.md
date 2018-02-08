@@ -9,12 +9,17 @@ but it is possible to install on other operating systems.
 
 ## Building
 
-Run `catkin_make` inside of the base workspace directory and two folders will be created, build and devel.
-In order for ROS to know where your workspace is, you will either need to run `source devel/setup.bash` once
-per terminal, or put this command inside of your bashrc. For zsh users, the command is `source devel/setup.zsh`
+Run `catkin_init_workspace` inside of the src directory and two folders will be created in the base 
+workspace directory, build and devel. In order for ROS to know where your workspace is, you will either 
+need to run `source devel/setup.bash` once per terminal, or put this command inside of your bashrc. 
+For zsh users, the command is `source devel/setup.zsh`.
 
 ## Running
 
-To run each ROS project, use the roslaunch command as shown: `roslaunch <pkg_name> <launchfile>`
+Due to the large degree of variance between each lab/project some are run differently than others. Below
+are instructions to run each individual project/lab.
 
-Example: `roslaunch labpkg lab1.launch`
+Lab 1: Simply use the launch file by enetring `roslaunch labpkg lab1.launch` from anywhere.
+
+Lab 2: First enter `roslaunch husky_gazebo husky_empty_world.launch` to launch the simulator and then enter `rosrun labpkg square`
+       and enjoy watching a robot move in a square(almost).

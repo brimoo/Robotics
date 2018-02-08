@@ -9,6 +9,10 @@ project(labpkg)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
+  geometry_msgs
+  sensor_msgs
+  tf2
+  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions
@@ -137,6 +141,8 @@ add_executable(sendtime src/sendtime.cpp)
 add_executable(receivetime src/receivetime.cpp)
 add_executable(square src/square.cpp)
 add_executable(getlaser src/getlaser.cpp)
+add_executable(getpose src/getpose.cpp)
+add_executable(gotopose src/gotopose.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -157,6 +163,8 @@ target_link_libraries(sendtime ${catkin_LIBRARIES})
 target_link_libraries(receivetime ${catkin_LIBRARIES})
 target_link_libraries(square ${catkin_LIBRARIES})
 target_link_libraries(getlaser ${catkin_LIBRARIES})
+target_link_libraries(getpose ${catkin_LIBRARIES})
+target_link_libraries(gotopose ${catkin_LIBRARIES})
 
 #############
 ## Install ##

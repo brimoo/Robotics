@@ -22,4 +22,7 @@ are instructions to run each individual project/lab.
 Lab 1: Simply use the launch file by enetring `roslaunch labpkg lab1.launch` from anywhere.
 
 Lab 2: First enter `roslaunch husky_gazebo husky_empty_world.launch` to launch the simulator and then enter `rosrun labpkg square`
-       and enjoy watching a robot move in a square(almost).
+and enjoy watching a robot move in a square(almost).
+       
+Lab 3: First enter`roslaunch husky_gazebo husky_playpen.launch` to launch the simulator, then enter `rosrun labpkbg getpose` and       then enter `rosrun labpkg gotopose`. Ther terminal you entered the second command in will prompt you to enter a pose for the robot
+to move to. Do this and watch the robot attempt to move to the pose you select in the simulator.

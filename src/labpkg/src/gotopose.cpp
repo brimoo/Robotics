@@ -65,9 +65,7 @@ int main(int argc, char** argv){
         double currentHeading = currentPose.theta * (180.0 / M_PI);
 
         double targetTheta = targetPose.theta * (180.0 / M_PI);
-
-        ROS_INFO_STREAM("Current x: " << currentPose.x << " Current y: " << currentPose.y);
-     
+ 
         if(abs(newHeading - currentHeading) > 5.0 && (abs(currentPose.x - targetPose.x) > 0.2 || abs(currentPose.y - targetPose.y) > 0.2)){
 
             newTwist.linear.x = 0;

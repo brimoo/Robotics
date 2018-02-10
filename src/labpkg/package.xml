@@ -62,9 +62,9 @@
   <build_export_depend>sensor_msgs</build_export_depend>
   <exec_depend>sensor_msgs</exec_depend>
 
-  <build_depend>tf2_ros</build_depend>
-  <build_export_depend>tf2_ros</build_export_depend>
-  <exec_depend>tf_ros</exec_depend>
+  <build_depend>tf</build_depend>
+  <build_export_depend>tf</build_export_depend>
+  <exec_depend>tf</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

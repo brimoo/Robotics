@@ -9,10 +9,6 @@ project(labpkg)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  geometry_msgs
-  sensor_msgs
-  tf2
-  tf2_ros
 )
 
 ## System dependencies are found with CMake's conventions

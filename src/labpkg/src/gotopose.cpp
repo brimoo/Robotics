@@ -9,6 +9,7 @@
 
 geometry_msgs::Pose2D currentPose, targetPose;
 
+// Callback function to read target pose
 void receivedNewPose(const geometry_msgs::Pose2D &msg){
 
     targetPose.x = msg.x;
@@ -20,7 +21,7 @@ void receivedNewPose(const geometry_msgs::Pose2D &msg){
 void receivedTFMessage(const tf::tfMessage &msg){
    
     for(int i = 0; i < msg.transforms.size(); i++){
-
+        // Retrieve the current coordinates and orientation
         if(msg.transforms[i].header.frame_id == "odom" && msg.transforms[i].child_frame_id == "base_link"){
        
             currentPose.x = msg.transforms[i].transform.translation.x;
@@ -44,7 +45,7 @@ void receivedTFMessage(const tf::tfMessage &msg){
 }
 
 int main(int argc, char** argv){
-
+    // Setup the node
     ros::init(argc, argv, "gotopose");
     ros::NodeHandle nh;
 
@@ -67,14 +68,14 @@ int main(int argc, char** argv){
         double targetTheta = targetPose.theta * (180.0 / M_PI);
  
         if(abs(newHeading - currentHeading) > 5.0 && (abs(currentPose.x - targetPose.x) > 0.2 || abs(currentPose.y - targetPose.y) > 0.2)){
-
+            // Robot is not angled properly and is far away from goal
             newTwist.linear.x = 0;
             newTwist.angular.z = M_PI / 4;
             pubtwist.publish(newTwist);
             rate.sleep();
 
         }else if((abs(currentPose.x - targetPose.x) > 0.2 || abs(currentPose.y - targetPose.y) > 0.2) && abs(newHeading - currentHeading) < 5.0){
-
+            // Robot is angled properly and is far away from goal
             newTwist.linear.x = 0;
             newTwist.angular.z = 0;
             pubtwist.publish(newTwist);
@@ -86,14 +87,14 @@ int main(int argc, char** argv){
             rate.sleep();
 
         }else if((abs(currentPose.x - targetPose.x) < 0.2 && abs(currentPose.y - targetPose.y) < 0.2) && abs(targetTheta - currentHeading) > 10.0){
-            
+            // Robot is at current goal but is not oriented properly
             newTwist.linear.x = 0;
             newTwist.angular.z = M_PI / 4;
             pubtwist.publish(newTwist);
             rate.sleep();
 
         }else{
-
+            // Robot has acheived target pose
             newTwist.linear.x = 0;
             newTwist.angular.z = 0;
             pubtwist.publish(newTwist);

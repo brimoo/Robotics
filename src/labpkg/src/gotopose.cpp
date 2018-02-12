@@ -71,36 +71,26 @@ int main(int argc, char** argv){
             // Robot is not angled properly and is far away from goal
             newTwist.linear.x = 0;
             newTwist.angular.z = M_PI / 4;
-            pubtwist.publish(newTwist);
-            rate.sleep();
 
         }else if((abs(currentPose.x - targetPose.x) > 0.2 || abs(currentPose.y - targetPose.y) > 0.2) && abs(newHeading - currentHeading) < 5.0){
             // Robot is angled properly and is far away from goal
-            newTwist.linear.x = 0;
-            newTwist.angular.z = 0;
-            pubtwist.publish(newTwist);
-            rate.sleep();
-
             newTwist.angular.z = 0;
             newTwist.linear.x = 3;
-            pubtwist.publish(newTwist);
-            rate.sleep();
 
         }else if((abs(currentPose.x - targetPose.x) < 0.2 && abs(currentPose.y - targetPose.y) < 0.2) && abs(targetTheta - currentHeading) > 10.0){
             // Robot is at current goal but is not oriented properly
             newTwist.linear.x = 0;
             newTwist.angular.z = M_PI / 4;
-            pubtwist.publish(newTwist);
-            rate.sleep();
 
         }else{
             // Robot has acheived target pose
             newTwist.linear.x = 0;
             newTwist.angular.z = 0;
-            pubtwist.publish(newTwist);
-            rate.sleep();
 
         }
+
+        pubtwist.publish(newTwist);
+        rate.sleep();
 
     }
 

@@ -5,7 +5,7 @@
 #include <tf/tf.h>
 #include <cmath>
 
-// Global variables for target pose and current
+// Global variables for target pose and current pose
 
 geometry_msgs::Pose2D currentPose, targetPose;
 

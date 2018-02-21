@@ -85,9 +85,9 @@ int main(int argc, char** argv){
         float theta2 = yaw2;
 
         // Calculate and publish velocities
-        float deltaX = x2 - x1, deltaY = y2 - y1, deltaT = t2 - t1;;
+        float deltaX = x2 - x1, deltaY = y2 - y1, deltaT = t2 - t1;
         float squareX = pow(deltaX, 2), squareY = pow(deltaY, 2);
-
+       
         newTwist.angular.z = (theta2 - theta1) / deltaT;
         newTwist.linear.x  = sqrt(squareX + squareY) / deltaT;
         pubtwist.publish(newTwist);

@@ -34,7 +34,8 @@ int main(int argc, char **argv){
 
     while(nh.ok()){
 
-    ros::spinOnce();
+
+        ros::spinOnce();
 
         move_base_msgs::MoveBaseGoal goal;
 
@@ -45,16 +46,24 @@ int main(int argc, char **argv){
         goal.target_pose.pose.position.y = targetPose.y;
         goal.target_pose.pose.orientation.w = targetPose.theta;
 
-        actionlib::SimpleClientGoalState state = ac.sendGoalAndWait(goal, ros::Duration(5.0), ros::Duration(0.0));
+        ac.sendGoal(goal);
+
+        isDone = false;
+
+        double t1 = ros::Time::now().toSec();
+
+        while(ros::Time::now().toSec() - t1 < 5.0){}
+
+        actionlib::SimpleClientGoalState state = ac.getState();
 
         if(state.toString() == "SUCCEEDED"){
             ROS_INFO_STREAM("Goal completed in time!");
+            isDone = true;
         }else{
-            ROS_INFO_STREAM("Goal timed out. Cancelling...");
             ac.cancelGoal();
+            ROS_INFO_STREAM("Goal timed out. Cancelling...");
         }
 
-    
     }
 
     return 0;

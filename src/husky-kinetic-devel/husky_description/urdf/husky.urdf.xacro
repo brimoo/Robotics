@@ -34,7 +34,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <xacro:arg name="kinect_rpy" default="$(optenv HUSKY_KINECT_RPY 0 0.18 3.14)" />
 
   <xacro:arg name="robot_namespace" default="/" />
-  <xacro:arg name="tfpre" default="husky" />
   <xacro:arg name="urdf_extras" default="empty.urdf" />
 
   <!-- Included URDF/XACRO Files -->
@@ -169,21 +168,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   </gazebo>
 
   <gazebo>
-    <plugin name="ground_truth" filename="libgazebo_ros_p3d.so">
-      <alwaysOn>true</alwaysOn>
-      <updateRate>30.0</updateRate>
-      <bodyName>base_link</bodyName>
-      <topicName>base_pose_ground_truth</topicName>
-      <frameName>map</frameName>
-      <xyzOffsets>0 0 0</xyzOffsets>
-      <rpyOffsets>0 0 0</rpyOffsets>
-    </plugin>
-  </gazebo>
-
-  <gazebo>
     <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
       <robotNamespace>$(arg robot_namespace)</robotNamespace>
-      <frameId>$(arg tfpre)/base_link</frameId>
       <updateRate>50.0</updateRate>
       <bodyName>base_link</bodyName>
       <topicName>imu/data</topicName>
@@ -199,7 +185,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <gazebo>
     <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
       <robotNamespace>$(arg robot_namespace)</robotNamespace>
-      <frameId>$(arg tfpre)/base_link</frameId>
       <updateRate>40</updateRate>
       <bodyName>base_link</bodyName>
       <frameId>base_link</frameId>
@@ -212,19 +197,6 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
       <drift>0.0001 0.0001 0.0001</drift>
     </plugin>
   </gazebo>
-
-    <gazebo>
-      <plugin name="GazeboRosMagnetic" filename="libhector_gazebo_ros_magnetic.so">
-        <robotNamespace>$(arg robot_namespace)</robotNamespace>
-          <frameId>$(arg tfpre)/base_link</frameId>
-        <updateRate>50.0</updateRate>
-        <bodyName>base_link</bodyName>
-        <frameId>base_link</frameId>
-        <topicName>imu/mag</topicName>
-        <drift>0.0 0.0 0.0</drift>
-        <gaussianNoise>1.3e-2 1.3e-2 1.3e-2</gaussianNoise>
-      </plugin>
-    </gazebo>
 
   <!-- Optional custom includes. -->
   <xacro:include filename="$(arg urdf_extras)" />

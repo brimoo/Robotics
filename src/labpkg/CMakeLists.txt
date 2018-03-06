@@ -143,6 +143,7 @@ add_executable(getpose src/getpose.cpp)
 add_executable(gotopose src/gotopose.cpp)
 add_executable(listener src/listener.cpp)
 add_executable(repeat src/repeat.cpp)
+add_executable(gotoposetimeout src/gotoposetimeout.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -167,6 +168,7 @@ target_link_libraries(getpose ${catkin_LIBRARIES})
 target_link_libraries(gotopose ${catkin_LIBRARIES})
 target_link_libraries(repeat ${catkin_LIBRARIES})
 target_link_libraries(listener ${catkin_LIBRARIES})
+target_link_libraries(gotoposetimeout ${catkin_LIBRARIES})
 
 #############
 ## Install ##

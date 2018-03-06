@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include <actionlib/client/simple_client_goal_state.h>
 #include <geometry_msgs/Pose2D.h>
 
 // Global variable for target pose
@@ -16,10 +17,9 @@ void receivedPose(const geometry_msgs::Pose2D &msg){
 
 }
 
-
 int main(int argc, char **argv){
 
-    ros::init(argc, argv, "gotopose");
+    ros::init(argc, argv, "gotoposetimeout");
     ros::NodeHandle nh;
     
     ros::Subscriber subNewPose = nh.subscribe("/targetpose", 1000, &receivedPose);
@@ -34,7 +34,7 @@ int main(int argc, char **argv){
 
     while(nh.ok()){
 
-        ros::spinOnce();
+    ros::spinOnce();
 
         move_base_msgs::MoveBaseGoal goal;
 
@@ -45,10 +45,16 @@ int main(int argc, char **argv){
         goal.target_pose.pose.position.y = targetPose.y;
         goal.target_pose.pose.orientation.w = targetPose.theta;
 
-        ac.sendGoal(goal);
+        actionlib::SimpleClientGoalState state = ac.sendGoalAndWait(goal, ros::Duration(5.0), ros::Duration(0.0));
 
-        ac.waitForResult();
+        if(state.toString() == "SUCCEEDED"){
+            ROS_INFO_STREAM("Goal completed in time!");
+        }else{
+            ROS_INFO_STREAM("Goal timed out. Cancelling...");
+            ac.cancelGoal();
+        }
 
+    
     }
 
     return 0;

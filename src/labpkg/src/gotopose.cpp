@@ -5,6 +5,7 @@
 
 // Global variable for target pose
 geometry_msgs::Pose2D targetPose;
+bool newCommand = true;
 
 void receivedPose(const geometry_msgs::Pose2D &msg){
 
@@ -13,6 +14,8 @@ void receivedPose(const geometry_msgs::Pose2D &msg){
     targetPose.x = msg.x;
     targetPose.y = msg.y;
     targetPose.theta = msg.theta;
+
+    newCommand = true;
 
 }
 
@@ -36,18 +39,22 @@ int main(int argc, char **argv){
 
         ros::spinOnce();
 
-        move_base_msgs::MoveBaseGoal goal;
+        if(newCommand){
 
-        goal.target_pose.header.frame_id = "map";
-        goal.target_pose.header.stamp = ros::Time::now();
+            move_base_msgs::MoveBaseGoal goal;
 
-        goal.target_pose.pose.position.x = targetPose.x;
-        goal.target_pose.pose.position.y = targetPose.y;
-        goal.target_pose.pose.orientation.w = targetPose.theta;
+            goal.target_pose.header.frame_id = "map";
+            goal.target_pose.header.stamp = ros::Time::now();
 
-        ac.sendGoal(goal);
+            goal.target_pose.pose.position.x = targetPose.x;
+            goal.target_pose.pose.position.y = targetPose.y;
+            goal.target_pose.pose.orientation.w = targetPose.theta;
 
-        ac.waitForResult();
+            newCommand = false;
+
+            ac.sendGoal(goal);
+
+        }
 
     }
 

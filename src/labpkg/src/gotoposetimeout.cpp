@@ -6,7 +6,7 @@
 
 // Global variable for target pose
 geometry_msgs::Pose2D targetPose;
-bool failed = false;
+bool newCommand = true;
 
 void receivedPose(const geometry_msgs::Pose2D &msg){
 
@@ -15,7 +15,8 @@ void receivedPose(const geometry_msgs::Pose2D &msg){
     targetPose.x = msg.x;
     targetPose.y = msg.y;
     targetPose.theta = msg.theta;
-    failed = false;
+    
+    newCommand = true;
 
 }
 
@@ -38,7 +39,7 @@ int main(int argc, char **argv){
 
         ros::spinOnce();
 
-        if(!failed){
+        if(newCommand){
 
             move_base_msgs::MoveBaseGoal goal;
 
@@ -48,6 +49,8 @@ int main(int argc, char **argv){
             goal.target_pose.pose.position.x = targetPose.x;
             goal.target_pose.pose.position.y = targetPose.y;
             goal.target_pose.pose.orientation.w = targetPose.theta;
+
+            newCommand = false;
 
             ac.sendGoal(goal);
 
@@ -61,7 +64,6 @@ int main(int argc, char **argv){
                 ROS_INFO_STREAM("Goal completed in time!");
             }else{
                 ac.cancelGoal();
-                failed = true;
                 ROS_INFO_STREAM("Goal timed out. Cancelling...");
             }
 

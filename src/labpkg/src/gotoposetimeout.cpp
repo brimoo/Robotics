@@ -6,6 +6,7 @@
 
 // Global variable for target pose
 geometry_msgs::Pose2D targetPose;
+bool failed = false;
 
 void receivedPose(const geometry_msgs::Pose2D &msg){
 
@@ -14,6 +15,7 @@ void receivedPose(const geometry_msgs::Pose2D &msg){
     targetPose.x = msg.x;
     targetPose.y = msg.y;
     targetPose.theta = msg.theta;
+    failed = false;
 
 }
 
@@ -37,31 +39,33 @@ int main(int argc, char **argv){
 
         ros::spinOnce();
 
-        move_base_msgs::MoveBaseGoal goal;
+        if(!failed){
 
-        goal.target_pose.header.frame_id = "map";
-        goal.target_pose.header.stamp = ros::Time::now();
+            move_base_msgs::MoveBaseGoal goal;
 
-        goal.target_pose.pose.position.x = targetPose.x;
-        goal.target_pose.pose.position.y = targetPose.y;
-        goal.target_pose.pose.orientation.w = targetPose.theta;
+            goal.target_pose.header.frame_id = "map";
+            goal.target_pose.header.stamp = ros::Time::now();
 
-        ac.sendGoal(goal);
+            goal.target_pose.pose.position.x = targetPose.x;
+            goal.target_pose.pose.position.y = targetPose.y;
+            goal.target_pose.pose.orientation.w = targetPose.theta;
 
-        isDone = false;
+            ac.sendGoal(goal);
 
-        double t1 = ros::Time::now().toSec();
+            double t1 = ros::Time::now().toSec();
 
-        while(ros::Time::now().toSec() - t1 < 5.0){}
+            while(ros::Time::now().toSec() - t1 < 5.0){}
 
-        actionlib::SimpleClientGoalState state = ac.getState();
+            actionlib::SimpleClientGoalState state = ac.getState();
 
-        if(state.toString() == "SUCCEEDED"){
-            ROS_INFO_STREAM("Goal completed in time!");
-            isDone = true;
-        }else{
-            ac.cancelGoal();
-            ROS_INFO_STREAM("Goal timed out. Cancelling...");
+            if(state.toString() == "SUCCEEDED"){
+                ROS_INFO_STREAM("Goal completed in time!");
+            }else{
+                ac.cancelGoal();
+                failed = true;
+                ROS_INFO_STREAM("Goal timed out. Cancelling...");
+            }
+
         }
 
     }

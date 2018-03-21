@@ -62,11 +62,7 @@ int main(int argc, char **argv){
 
         if(abs(thetaEstimated - thetaRead) >= 10.0 && !goalCancelled){
             ROS_INFO_STREAM("Divergence Too High! Cancelling goal...");
-<<<<<<< HEAD
             goalCancelled = true;
-=======
-            goalCancelled = true;;
->>>>>>> 52a9ae24b7719fb34f07cbe8cac8d0cda22e52a1
         }
 
     }

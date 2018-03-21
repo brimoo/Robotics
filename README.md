@@ -28,3 +28,5 @@ are instructions to run each individual project/lab.
 **Lab 4:** First enter `roslaunch husky_gazebo multi_husky_playpen.launch` to launch the simulator, then enter `rosrun random random` and then enter `rosrun labpkg repeat` and watch a robot attempt to mimic the moves of another robot. Additionally, you can enter `rosrun labpkg listener` to see a live print out of the transforms being received by the husky_alpha bot.
 
 **Lab 5:** This lab is just an improved version of lab 3. First enter `roslaunch husky_gazebo huskylab5.launch` to launch the simulator, then enter `rosrun labpkg getpose`. You can now choose to run gotopose or gotoposetimeout by entering `rosrun labpkg gotopose` or `rosrun labpkg gotoposetimeout`.
+
+**Lab 6:** First enter `roslaunch husky_gazebo huskylab5.launch` to launch the simulator. Thenenter `rosrun labpkg saferandomwalk` and watch the robot move around the environment randomly and stop whener it detects that it is within 0.2 meters of an obstacle. You can also run `rosrun labpkg detectdivergence` in parallel with the previous node, this will stop the robot if the sensor readings diverge too much.

@@ -144,6 +144,8 @@ add_executable(gotopose src/gotopose.cpp)
 add_executable(listener src/listener.cpp)
 add_executable(repeat src/repeat.cpp)
 add_executable(gotoposetimeout src/gotoposetimeout.cpp)
+add_executable(saferandomwalk src/saferandomwalk.cpp)
+add_executable(detectdivergence src/detectdivergence.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -169,6 +171,8 @@ target_link_libraries(gotopose ${catkin_LIBRARIES})
 target_link_libraries(repeat ${catkin_LIBRARIES})
 target_link_libraries(listener ${catkin_LIBRARIES})
 target_link_libraries(gotoposetimeout ${catkin_LIBRARIES})
+target_link_libraries(saferandomwalk ${catkin_LIBRARIES})
+target_link_libraries(detectdivergence ${catkin_LIBRARIES})
 
 #############
 ## Install ##

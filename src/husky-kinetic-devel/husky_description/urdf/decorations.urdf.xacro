@@ -120,6 +120,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         <child link="top_plate_link"/>
         <origin xyz="0.0812 0 0.245" rpy="0 0 0"/>
       </joint>
+
     </xacro:if>
 
   </xacro:macro>

@@ -115,9 +115,10 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+
 include_directories(
 # include
-  ${catkin_INCLUDE_DIRS}
+${catkin_INCLUDE_DIRS} ${Eigen_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -146,6 +147,7 @@ add_executable(repeat src/repeat.cpp)
 add_executable(gotoposetimeout src/gotoposetimeout.cpp)
 add_executable(saferandomwalk src/saferandomwalk.cpp)
 add_executable(detectdivergence src/detectdivergence.cpp)
+add_executable(uncertainty src/uncertainty.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -173,6 +175,7 @@ target_link_libraries(listener ${catkin_LIBRARIES})
 target_link_libraries(gotoposetimeout ${catkin_LIBRARIES})
 target_link_libraries(saferandomwalk ${catkin_LIBRARIES})
 target_link_libraries(detectdivergence ${catkin_LIBRARIES})
+target_link_libraries(uncertainty ${catkin_LIBRARIES})
 
 #############
 ## Install ##
